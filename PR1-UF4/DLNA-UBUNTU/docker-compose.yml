@@ -7,7 +7,7 @@ services:
     volumes:
       - video-data:/data
   vlc-player:
-    image: vlc
+    image: 
     command: vlc dlna://dlna-server:8200
 volumes:
   video-data:

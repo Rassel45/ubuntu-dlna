@@ -1,20 +1,11 @@
 FROM ubuntu:22.04
 
-# Install DLNA server and VLC player
-RUN apt-get update && \
-    apt-get install -y dlna vlc
+RUN apt-get update
+RUN apt-get install -y vlc minidlna
 
-# Create a directory to store the video file
-RUN mkdir /vids
+COPY spin.mp4 /home/user/spin.mp4
 
-# Copy the video file into the container
-COPY spin.mp4 /vids
-
-# Set the working directory
-WORKDIR /vids
-
-# Expose the DLNA server port
+EXPOSE 1900/udp
 EXPOSE 8200
 
-# Start the DLNA server
-CMD ["dlna", "-p", "8200", "-d", "/data"]
+CMD ["sh", "-c", "echo 'media_dir=/home/user\nfriendly_name=DockerDLNA' > /etc/minidlna.conf && minidlnad -d"]

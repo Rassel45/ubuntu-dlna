@@ -8,7 +8,7 @@ RUN apt-get update && \
 RUN mkdir /vids
 
 # Copy the video file into the container
-COPY video.mp4 /vids
+COPY spin.mp4 /vids
 
 # Set the working directory
 WORKDIR /vids

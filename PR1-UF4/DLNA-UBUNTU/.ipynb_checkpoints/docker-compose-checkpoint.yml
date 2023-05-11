@@ -1,0 +1,13 @@
+version: '3'
+services:
+  dlna-server:
+    build: .
+    ports:
+      - "8200:8200"
+    volumes:
+      - video-data:/data
+  vlc-player:
+    image: vlc
+    command: vlc dlna://dlna-server:8200
+volumes:
+  video-data:

@@ -14,10 +14,6 @@ COPY spin.mp4 /home/vids/spin.mp4
 
 EXPOSE 1900/udp
 
-EXPOSE 8200
-
-RUN service minidlna start
-
-RUN service minidlna restart
+EXPOSE 8200/tcp
 
 CMD ["/bin/bash","-c","minidlnad -d"]

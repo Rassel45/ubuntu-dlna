@@ -1,11 +1,23 @@
 FROM ubuntu:22.04
 
 RUN apt-get update
+
 RUN apt-get install -y vlc minidlna
 
-COPY spin.mp4 /home/user/spin.mp4
+RUN mkdir -p /home/vids/
+
+RUN chmod 775 /home/vids/
+
+COPY minidlna.conf /etc/minidlna.conf
+
+COPY spin.mp4 /home/vids/spin.mp4
 
 EXPOSE 1900/udp
+
 EXPOSE 8200
 
-CMD ["sh", "-c", "echo 'media_dir=/home/user\nfriendly_name=DockerDLNA' > /etc/minidlna.conf && minidlnad -d"]
+RUN service minidlna start
+
+RUN service minidlna restart
+
+CMD ["/bin/bash","-c","minidlnad -d"]
